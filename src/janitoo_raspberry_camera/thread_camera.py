@@ -67,6 +67,6 @@ class CameraThread(JNTBusThread):
     def init_bus(self):
         """Build the bus
         """
-        from janitoo_raspberry.camera import CameraBus
+        from janitoo_raspberry_camera.camera import CameraBus
         self.section = 'rpicamera'
         self.bus = CameraBus(options=self.options, oid=self.section, product_name="Raspberry camera controller")
