@@ -58,12 +58,12 @@ data_files_config(data_files, 'docs','src/docs/','*')
 #It will be used to collect entries without installing the package
 janitoo_entry_points = {
     "janitoo.threads": [
-        "picamera = janitoo_raspberry.thread_camera:make_thread",
+        "rpicamera = janitoo_raspberry.thread_camera:make_thread",
     ],
     "janitoo.components": [
-        "picamera.photo = janitoo_raspberry.camera:make_photo",
-        "picamera.video = janitoo_raspberry.camera:make_video",
-        "picamera.stream = janitoo_raspberry.camera:make_stream",
+        "rpicamera.photo = janitoo_raspberry.camera:make_photo",
+        "rpicamera.video = janitoo_raspberry.camera:make_video",
+        "rpicamera.stream = janitoo_raspberry.camera:make_stream",
     ],
 }
 
