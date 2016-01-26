@@ -41,7 +41,7 @@ from janitoo.utils import TOPIC_NODES, TOPIC_NODES_REPLY, TOPIC_NODES_REQUEST
 from janitoo.utils import TOPIC_BROADCAST_REPLY, TOPIC_BROADCAST_REQUEST
 from janitoo.utils import TOPIC_VALUES_USER, TOPIC_VALUES_CONFIG, TOPIC_VALUES_SYSTEM, TOPIC_VALUES_BASIC
 
-from janitoo_raspberry.thread_camera import CameraThread
+from janitoo_raspberry_camera.thread_camera import CameraThread
 ##############################################################
 #Check that we are in sync with the official command classes
 #Must be implemented for non-regression
@@ -57,14 +57,14 @@ JNTTComponent.onlyRasperryTest()
 class TesCameraComponentPhoto(JNTTComponent, JNTTComponentCommon):
     """Test the component
     """
-    component_name = "picamera.photo"
+    component_name = "rpicamera.photo"
 
 class TesCameraComponentVideo(JNTTComponent, JNTTComponentCommon):
     """Test the component
     """
-    component_name = "picamera.photo"
+    component_name = "rpicamera.photo"
 
 class TesCameraComponentStream(JNTTComponent, JNTTComponentCommon):
     """Test the component
     """
-    component_name = "picamera.stream"
+    component_name = "rpicamera.stream"
