@@ -44,7 +44,10 @@ from janitoo.component import JNTComponent
 from janitoo.thread import BaseThread
 from janitoo.options import get_option_autostart
 from janitoo.threads.http import HttpResourceComponent
-import picamera
+try:
+    import picamera
+except OSError:
+    print "Can't load picamera"
 
 ##############################################################
 #Check that we are in sync with the official command classes
