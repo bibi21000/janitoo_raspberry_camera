@@ -49,6 +49,8 @@ try:
 except OSError:
     print "Can't load picamera"
 
+from janitoo_raspberry_i2c_hat.thread_hat import OID
+
 ##############################################################
 #Check that we are in sync with the official command classes
 #Must be implemented for non-regression
@@ -95,26 +97,26 @@ class CameraBus(JNTBus):
             ndir = os.path.join(directory,didir)
             if not os.path.exists(ndir):
                 os.makedirs(ndir)
-        uuid="led"
+        uuid="%s_led"%OID
         self.values[uuid] = self.value_factory['config_boolean'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
             help='Led state',
             label='led',
             default=True,
         )
-        uuid="actions"
+        uuid="%s_actions"%OID
         self.values[uuid] = self.value_factory['action_list'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
             help='The actions on the camera',
             label='Actions',
             list_items=['start_preview', 'stop_preview'],
-            set_data_cb=self.set_action,
+            set_data_cb=self.rpicamera_set_action,
             is_writeonly = True,
             cmd_class=COMMAND_CAMERA_PREVIEW,
             genre=0x01,
         )
 
-    def set_action(self, node_uuid, index, data):
+    def rpicamera_set_action(self, node_uuid, index, data):
         """Act on the server
         """
         params = {}
@@ -130,7 +132,7 @@ class CameraBus(JNTBus):
         if 'home_dir' in self.options.data and self.options.data['home_dir'] is not None:
             dirname = self.options.data['home_dir']
         dirname = os.path.join(dirname, "public")
-        directory = os.path.join(dirname, "picamera")
+        directory = os.path.join(dirname, OID)
         if not os.path.exists(directory):
             os.makedirs(directory)
         return directory
@@ -165,7 +167,7 @@ class CameraBus(JNTBus):
         if locked == True:
             if self.camera is None:
                 self.camera = picamera.PiCamera()
-            self.camera.led = self.values['led'].data
+            self.camera.led = self.get_bus_value("%s_led"%OID).data
             self.camera.start_preview()
             # Camera warm-up time
             time.sleep(2)

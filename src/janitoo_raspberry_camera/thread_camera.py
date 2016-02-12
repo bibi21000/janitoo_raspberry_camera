@@ -54,6 +54,8 @@ COMMAND_CONTROLLER = 0x1050
 assert(COMMAND_DESC[COMMAND_CONTROLLER] == 'COMMAND_CONTROLLER')
 ##############################################################
 
+OID = 'rpicamera'
+
 def make_thread(options):
     if get_option_autostart(options, 'picamera') == True:
         return CameraThread(options)
@@ -68,5 +70,5 @@ class CameraThread(JNTBusThread):
         """Build the bus
         """
         from janitoo_raspberry_camera.camera import CameraBus
-        self.section = 'rpicamera'
+        self.section = OID
         self.bus = CameraBus(options=self.options, oid=self.section, product_name="Raspberry camera controller")
