@@ -47,7 +47,7 @@ from janitoo.threads.http import HttpResourceComponent
 try:
     import picamera
 except OSError:
-    print "Can't load picamera"
+    logger.exception('Can"t import picamera')
 
 from janitoo_raspberry_i2c_hat.thread_hat import OID
 
