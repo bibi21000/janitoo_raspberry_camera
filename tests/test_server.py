@@ -63,7 +63,7 @@ class TestPiSerser(JNTTServer, JNTTServerCommon):
     server_conf = "tests/data/janitoo_raspberry_camera.conf"
     hadds = [HADD%(138,0)]
 
-    def test_111_server_start_no_error_in_log(self):
+    def test_101_server_start_no_error_in_log(self):
         self.onlyRasperryTest()
         self.start()
         try:
