@@ -98,12 +98,12 @@ setup(
     include_package_data=True,
     data_files = data_files,
     install_requires=[
-                     'janitoo >= %s'%"0.0.6",
+                     'janitoo',
                      'janitoo_raspberry',
                      'picamera',
                     ],
     dependency_links = [
-      'https://github.com/bibi21000/janitoo/archive/master.zip#egg=janitoo-%s'%"0.0.7",
+      'https://github.com/bibi21000/janitoo/archive/master.zip#egg=janitoo',
       'https://github.com/bibi21000/janitoo_raspberry/archive/master.zip#egg=janitoo_raspberry',
     ],
     entry_points = janitoo_entry_points,

@@ -49,7 +49,7 @@ try:
 except OSError:
     logger.exception('Can"t import picamera')
 
-from janitoo_raspberry_i2c_hat.thread_hat import OID
+from janitoo_raspberry_camera.thread_camera import OID
 
 ##############################################################
 #Check that we are in sync with the official command classes
@@ -241,7 +241,7 @@ class CameraPhoto(CameraComponent):
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, 'rpicamera.photo', bus=bus, addr=addr, name="Photo",
+        CameraComponent.__init__(self, '%s.photo'%OID, bus=bus, addr=addr, name="Photo",
                 product_name="Photo", product_type="Software", product_manufacturer="Photo", **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
@@ -280,7 +280,7 @@ class CameraVideo(CameraComponent):
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, 'rpicamera.video', bus=bus, addr=addr, name="Video",
+        CameraComponent.__init__(self, '%s.video'%OID, bus=bus, addr=addr, name="Video",
                 product_name="Video", product_type="Software", product_manufacturer="Video", **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
@@ -413,7 +413,7 @@ class CameraStream(CameraComponent):
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, 'rpicamera.stream', bus=bus, addr=addr, name="Stream",
+        CameraComponent.__init__(self, '%s.stream'%OID, bus=bus, addr=addr, name="Stream",
                 product_name="Stream", product_type="Software", product_manufacturer="Stream", **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
