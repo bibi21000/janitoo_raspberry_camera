@@ -57,7 +57,7 @@ assert(COMMAND_DESC[COMMAND_CONTROLLER] == 'COMMAND_CONTROLLER')
 OID = 'rpicamera'
 
 def make_thread(options):
-    if get_option_autostart(options, 'picamera') == True:
+    if get_option_autostart(options, OID) == True:
         return CameraThread(options)
     else:
         return None
