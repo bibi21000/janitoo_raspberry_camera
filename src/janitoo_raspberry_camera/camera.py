@@ -150,27 +150,38 @@ class CameraBus(JNTBus):
         """Start the bus
         """
         JNTBus.start(self, mqttc, trigger_thread_reload_cb)
-        self.camera = picamera.PiCamera()
+        try:
+            self.camera = picamera.PiCamera()
+        except:
+            logger.exception("Can't start component camera")
 
     def stop(self):
         """
         """
         JNTBus.stop(self)
         if self.camera is not None:
-            self.camera.close()
-            self.camera = None
+            try:
+                self.camera.close()
+                self.camera = None
+            except:
+                logger.exception("Can't start component camera")
 
     def camera_start(self):
         """Start the camera. Must be used wit camera_stop in a try finally block
         """
         locked = self._lock.acquire(False)
         if locked == True:
-            if self.camera is None:
-                self.camera = picamera.PiCamera()
-            self.camera.led = self.get_bus_value("%s_led"%OID).data
-            self.camera.start_preview()
-            # Camera warm-up time
-            time.sleep(2)
+            try:
+                if self.camera is None:
+                    self.camera = picamera.PiCamera()
+                self.camera.led = self.get_bus_value("%s_led"%OID).data
+                self.camera.start_preview()
+                # Camera warm-up time
+                time.sleep(2)
+            except:
+                logger.exception("Can't start camera")
+                self._lock.release()
+                return False
         return locked
 
     def camera_stop(self):
