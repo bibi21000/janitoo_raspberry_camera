@@ -238,10 +238,10 @@ class CameraComponent(JNTComponent):
 class CameraPhoto(CameraComponent):
     """ Use pycamera. """
 
-    def __init__(self, bus=None, addr=None, **kwargs):
+    def __init__(self, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, '%s.photo'%OID, bus=bus, addr=addr, name="Photo",
+        CameraComponent.__init__(self, '%s.photo'%OID, addr=addr, name="Photo",
                 product_name="Photo", product_type="Software", product_manufacturer="Photo", **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
@@ -277,10 +277,10 @@ class CameraPhoto(CameraComponent):
 class CameraVideo(CameraComponent):
     """ Use pycamera. """
 
-    def __init__(self, bus=None, addr=None, **kwargs):
+    def __init__(self, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, '%s.video'%OID, bus=bus, addr=addr, name="Video",
+        CameraComponent.__init__(self, '%s.video'%OID, addr=addr, name="Video",
                 product_name="Video", product_type="Software", product_manufacturer="Video", **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
@@ -410,10 +410,10 @@ class StreamServerThread(BaseThread):
 class CameraStream(CameraComponent):
     """ Use pycamera. """
 
-    def __init__(self, bus=None, addr=None, **kwargs):
+    def __init__(self, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, '%s.stream'%OID, bus=bus, addr=addr, name="Stream",
+        CameraComponent.__init__(self, '%s.stream'%OID, addr=addr, name="Stream",
                 product_name="Stream", product_type="Software", product_manufacturer="Stream", **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
