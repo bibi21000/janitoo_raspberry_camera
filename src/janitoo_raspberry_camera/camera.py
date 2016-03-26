@@ -43,7 +43,7 @@ from janitoo.bus import JNTBus
 from janitoo.component import JNTComponent
 from janitoo.thread import BaseThread
 from janitoo.options import get_option_autostart
-from janitoo.threads.http import HttpResourceComponent
+from janitoo_factory.threads.http import HttpResourceComponent
 try:
     import picamera
 except OSError:
