@@ -58,4 +58,6 @@ class TestPiSerser(JNTTDockerServer, JNTTDockerServerCommon):
         JNTTDockerServer.onlyDockerTest()
         JNTTDockerServerCommon.minimal_040_server_start_reload_restart(self)
 
-
+    def test_020_request_broadcast(self):
+        JNTTDockerServer.onlyDockerTest()
+        JNTTDockerServerCommon.minimal_020_request_broadcast(self)
