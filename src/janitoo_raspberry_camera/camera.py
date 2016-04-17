@@ -1,12 +1,5 @@
 # -*- coding: utf-8 -*-
-"""The Raspberry camera worker
-
-Installation :
-
-.. code-block:: bash
-
-    sudo apt-get install python-pycamera
-
+""" The Raspberry camera worker
 """
 
 __license__ = """
@@ -90,7 +83,7 @@ class CameraBus(JNTBus):
         :param kwargs: parameters transmitted to :py:class:`smbus.SMBus` initializer
         """
         JNTBus.__init__(self, **kwargs)
-        self._lock = threading.Lock()
+        self._camera_lock = threading.Lock()
         self.camera = None
         directory = self.get_public_directory()
         for didir in CAMERA_DIR:
@@ -115,6 +108,16 @@ class CameraBus(JNTBus):
             cmd_class=COMMAND_CAMERA_PREVIEW,
             genre=0x01,
         )
+        self.export_attrs('camera_acquire', self.camera_acquire)
+        self.export_attrs('camera_release', self.camera_release)
+
+    def camera_acquire(self):
+        """Get a lock on the bus"""
+        self._camera_lock.acquire()
+
+    def camera_release(self):
+        """Release a lock on the bus"""
+        self._camera_lock.release()
 
     def rpicamera_set_action(self, node_uuid, index, data):
         """Act on the server
