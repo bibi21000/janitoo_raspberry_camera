@@ -60,5 +60,4 @@ class TestRaspberryCameraSerser(JNTTDockerServer, JNTTDockerServerCommon):
 
     def test_020_request_broadcast(self):
         JNTTDockerServer.onlyDockerTest()
-        pass
-        #~ JNTTDockerServerCommon.minimal_020_request_broadcast(self)
+        JNTTDockerServerCommon.minimal_020_request_broadcast(self)
