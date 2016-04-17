@@ -64,6 +64,9 @@ class TestPiSerser(JNTTServer, JNTTServerCommon):
         self.skipRasperryTest()
         JNTTServerCommon.test_012_start_reload_threads_stop(self)
 
+    def test_020_request_broadcast(self):
+        JNTTServer.minimal_020_request_broadcast(self)
+
     def test_030_wait_for_all_nodes(self):
         self.skipRasperryTest()
         JNTTServerCommon.test_030_wait_for_all_nodes(self)
