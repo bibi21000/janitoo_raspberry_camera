@@ -37,9 +37,18 @@ from janitoo.component import JNTComponent
 from janitoo.thread import BaseThread
 from janitoo.options import get_option_autostart
 from janitoo_factory.threads.http import HttpResourceComponent
+
 try:
     import picamera
 except OSError:
+    class Picamera():
+        """ Fake class to allow buil on Continuous Integration tools.
+        """
+        class PiCamera():
+            """ Fake class to allow buil on Continuous Integration tools.
+            """
+            pass
+    picamera = Picamera()
     logger.exception('Can"t import picamera')
 
 from janitoo_raspberry_camera.thread_camera import OID
@@ -161,7 +170,7 @@ class CameraBus(JNTBus):
             else:
                 raise RuntimeError("Can't lock camera")
         except:
-            logger.exception("Can't start component camera")
+            logger.exception("[%s] - Can't start component camera", self.__class__.__name__)
         finally:
             self.camera_release()
 
@@ -172,10 +181,10 @@ class CameraBus(JNTBus):
         if self.camera is not None:
             try:
                 self.camera.close()
-                self.camera = None
-                self.update_attrs('camera', self.camera)
             except:
-                logger.exception("Can't start component camera")
+                logger.exception("[%s] - an't start component camera", self.__class__.__name__)
+        self.camera = None
+        self.update_attrs('camera', self.camera)
 
     def camera_start(self):
         """Start the camera. Must be used wit camera_stop in a try finally block
@@ -188,11 +197,11 @@ class CameraBus(JNTBus):
                 # Camera warm-up time
                 time.sleep(2)
             except:
-                logger.exception("Can't start camera")
+                logger.exception("[%s] - Can't start camera", self.__class__.__name__)
                 try:
                     self.camera_release()
                 except:
-                    logger.debug("Can't release lock", exc_info=True)
+                    logger.debug("[%s] - Can't release lock", self.__class__.__name__, exc_info=True)
                 return False
         return locked
 
@@ -208,7 +217,7 @@ class CameraBus(JNTBus):
             try:
                 self.camera_release()
             except:
-                logger.debug("Can't release lock", exc_info=True)
+                logger.debug("[%s] - Can't release lock", self.__class__.__name__, exc_info=True)
 
 class CameraComponent(JNTComponent):
     """ Use pycamera. """
@@ -430,7 +439,7 @@ class CameraStream(CameraComponent):
         CameraComponent.__init__(self, oid='%s.stream'%OID, addr=addr, name="Stream",
                 product_name="Stream", product_type="Software", product_manufacturer="Stream", **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
-
+        self._server = None
         uuid="host"
         self.values[uuid] = self.value_factory['config_string'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
