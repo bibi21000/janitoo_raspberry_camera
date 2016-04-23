@@ -110,10 +110,11 @@ class CameraBus(JNTBus):
         )
         self.export_attrs('camera_acquire', self.camera_acquire)
         self.export_attrs('camera_release', self.camera_release)
+        self.export_attrs('camera', self.camera)
 
     def camera_acquire(self):
         """Get a lock on the bus"""
-        self._camera_lock.acquire()
+        return self._camera_lock.acquire(False)
 
     def camera_release(self):
         """Release a lock on the bus"""
@@ -154,9 +155,15 @@ class CameraBus(JNTBus):
         """
         JNTBus.start(self, mqttc, trigger_thread_reload_cb)
         try:
-            self.camera = picamera.PiCamera()
+            if self.camera_acquire():
+                self.camera = picamera.PiCamera()
+                self.update_attrs('camera', self.camera)
+            else:
+                raise RuntimeError("Can't lock camera")
         except:
             logger.exception("Can't start component camera")
+        finally:
+            self.camera_release()
 
     def stop(self):
         """
@@ -166,24 +173,26 @@ class CameraBus(JNTBus):
             try:
                 self.camera.close()
                 self.camera = None
+                self.update_attrs('camera', self.camera)
             except:
                 logger.exception("Can't start component camera")
 
     def camera_start(self):
         """Start the camera. Must be used wit camera_stop in a try finally block
         """
-        locked = self._lock.acquire(False)
+        locked = self.camera_acquire()
         if locked == True:
             try:
-                if self.camera is None:
-                    self.camera = picamera.PiCamera()
                 self.camera.led = self.get_bus_value("%s_led"%OID).data
                 self.camera.start_preview()
                 # Camera warm-up time
                 time.sleep(2)
             except:
                 logger.exception("Can't start camera")
-                self._lock.release()
+                try:
+                    self.camera_release()
+                except:
+                    logger.debug("Can't release lock", exc_info=True)
                 return False
         return locked
 
@@ -191,13 +200,15 @@ class CameraBus(JNTBus):
         """Stop the camera. Must be used wit camera_start in a try finally block
         """
         try:
-            self.camera.stop_preview()
+            if self.camera is not None:
+                self.camera.stop_preview()
         except:
             logger.exception("[%s] - Exception in camera_stop", self.__class__.__name__)
-        try:
-            self._lock.release()
-        except:
-            logger.exception("[%s] - Exception in camera_stop", self.__class__.__name__)
+        finally:
+            try:
+                self.camera_release()
+            except:
+                logger.debug("Can't release lock", exc_info=True)
 
 class CameraComponent(JNTComponent):
     """ Use pycamera. """
