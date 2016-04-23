@@ -460,8 +460,8 @@ class CameraStream(CameraComponent):
             if self._server is not None:
                 self._server.trigger_reload()
 
-    def start(self, mqttc, trigger_thread_reload_cb=None):
-        CameraComponent.start(self, mqttc, trigger_thread_reload_cb)
+    def start(self, mqttc):
+        CameraComponent.start(self, mqttc)
         self._server = StreamServerThread("stream_server", self.options.data)
         self._server.config(host=self.values["host"].data, port=self.values["port"].data, camera=self._bus.camera)
         self._server.start()
