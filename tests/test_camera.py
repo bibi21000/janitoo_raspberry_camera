@@ -59,4 +59,4 @@ class TesCameraComponentVideo(JNTTComponent, JNTTComponentCommon):
 class TesCameraComponentStream(JNTTComponent, JNTTComponentCommon):
     """Test the component
     """
-    component_name = "rpicamera.stream"
+    component_name = "rpicamera.videostream"

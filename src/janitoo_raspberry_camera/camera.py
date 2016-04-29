@@ -264,8 +264,13 @@ class CameraPhoto(CameraComponent):
     def __init__(self, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, oid='%s.photo'%OID, addr=addr, name="Photo",
-                product_name="Photo", product_type="Software", product_manufacturer="Photo", **kwargs)
+        oid = kwargs.pop('oid', '%s.photo'%OID)
+        name = kwargs.pop('name', "Photo")
+        product_name = kwargs.pop('product_name', "Photo")
+        product_type = kwargs.pop('product_type', "Software")
+        product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
+        CameraComponent.__init__(self, oid=oid, addr=addr, name=name,
+                product_name=product_name, product_type=product_type, product_manufacturer=product_manufacturer, **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
         uuid="snapshot"
@@ -303,8 +308,13 @@ class CameraVideo(CameraComponent):
     def __init__(self, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, oid='%s.video'%OID, addr=addr, name="Video",
-                product_name="Video", product_type="Software", product_manufacturer="Video", **kwargs)
+        oid = kwargs.pop('oid', '%s.video'%OID)
+        name = kwargs.pop('name', "Video")
+        product_name = kwargs.pop('product_name', "Video")
+        product_type = kwargs.pop('product_type', "Software")
+        product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
+        CameraComponent.__init__(self, oid=oid, addr=addr, name=name,
+            product_name=product_name, product_type=product_type, product_manufacturer=product_manufacturer, **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
         uuid="snpashot"
@@ -436,8 +446,13 @@ class CameraStream(CameraComponent):
     def __init__(self, addr=None, **kwargs):
         """
         """
-        CameraComponent.__init__(self, oid='%s.stream'%OID, addr=addr, name="Stream",
-                product_name="Stream", product_type="Software", product_manufacturer="Stream", **kwargs)
+        oid = kwargs.pop('oid', '%s.videostream'%OID)
+        name = kwargs.pop('name', "Photo")
+        product_name = kwargs.pop('product_name', "Video stream")
+        product_type = kwargs.pop('product_type', "Software")
+        product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
+        CameraComponent.__init__(self, oid=oid, addr=addr, name=name,
+                product_name=product_name, product_type=product_type, product_manufacturer=product_manufacturer, **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
         self._server = None
         uuid="host"
