@@ -63,7 +63,7 @@ janitoo_entry_points = {
     "janitoo.components": [
         "rpicamera.photo = janitoo_raspberry_camera.camera:make_photo",
         "rpicamera.video = janitoo_raspberry_camera.camera:make_video",
-        "rpicamera.stream = janitoo_raspberry_camera.camera:make_stream",
+        "rpicamera.videostream = janitoo_raspberry_camera.camera:make_stream",
     ],
 }
 
