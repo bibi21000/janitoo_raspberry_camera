@@ -121,9 +121,9 @@ class CameraBus(JNTBus):
         self.export_attrs('camera_release', self.camera_release)
         self.export_attrs('camera', self.camera)
 
-    def camera_acquire(self):
+    def camera_acquire(self, blocking=False):
         """Get a lock on the bus"""
-        return self._camera_lock.acquire(False)
+        return self._camera_lock.acquire(blocking)
 
     def camera_release(self):
         """Release a lock on the bus"""
