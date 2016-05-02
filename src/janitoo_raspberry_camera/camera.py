@@ -268,9 +268,8 @@ class CameraPhoto(CameraComponent):
         name = kwargs.pop('name', "Photo")
         product_name = kwargs.pop('product_name', "Photo")
         product_type = kwargs.pop('product_type', "Software")
-        product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
         CameraComponent.__init__(self, oid=oid, addr=addr, name=name,
-                product_name=product_name, product_type=product_type, product_manufacturer=product_manufacturer, **kwargs)
+                product_name=product_name, product_type=product_type, **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
         uuid="snapshot"
@@ -312,9 +311,8 @@ class CameraVideo(CameraComponent):
         name = kwargs.pop('name', "Video")
         product_name = kwargs.pop('product_name', "Video")
         product_type = kwargs.pop('product_type', "Software")
-        product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
         CameraComponent.__init__(self, oid=oid, addr=addr, name=name,
-            product_name=product_name, product_type=product_type, product_manufacturer=product_manufacturer, **kwargs)
+            product_name=product_name, product_type=product_type, **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
 
         uuid="snpashot"
@@ -450,9 +448,8 @@ class CameraStream(CameraComponent):
         name = kwargs.pop('name', "Photo")
         product_name = kwargs.pop('product_name', "Video stream")
         product_type = kwargs.pop('product_type', "Software")
-        product_manufacturer = kwargs.pop('product_manufacturer', "Janitoo")
         CameraComponent.__init__(self, oid=oid, addr=addr, name=name,
-                product_name=product_name, product_type=product_type, product_manufacturer=product_manufacturer, **kwargs)
+                product_name=product_name, product_type=product_type, **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
         self._server = None
         uuid="host"
@@ -513,8 +510,10 @@ class CameraResource(HttpResourceComponent):
     def __init__(self, bus=None, addr=None, **kwargs):
         """
         """
-        HttpResourceComponent.__init__(self, path='photo', oid='http.camera', bus=bus, addr=addr, name="Http camera resource",
-                product_name="HTTP camera resource", **kwargs)
+        oid = kwargs.pop('oid', 'http.camera')
+        name = kwargs.pop('name', "Http camera resource")
+        HttpResourceComponent.__init__(self, path='photo', oid=oid, bus=bus,
+                addr=addr, name=name, **kwargs)
         logger.debug("[%s] - __init__ node uuid:%s", self.__class__.__name__, self.uuid)
         dirname='.'
         if 'home_dir' in self.options.data and self.options.data['home_dir'] is not None:
