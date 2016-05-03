@@ -60,5 +60,6 @@ class TestRaspberryCameraSerser(JNTTDockerServer, JNTTDockerServerCommon):
         JNTTDockerServerCommon.minimal_040_server_start_reload_restart(self)
 
     def test_020_request_broadcast(self):
+        JNTTDockerServer.skipTest("Fix test of protocol")
         JNTTDockerServer.onlyDockerTest()
         JNTTDockerServerCommon.minimal_020_request_broadcast(self)
