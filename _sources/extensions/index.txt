@@ -1,0 +1,20 @@
+janitoo_raspberry_camera package
+================================
+
+Show janitoo's extensions.
+
+Core extensions
+---------------
+
+Threads
+^^^^^^^
+
+ - rpicamera (janitoo_raspberry_camera.thread_camera:make_thread)
+
+Components
+^^^^^^^^^^
+
+ - rpicamera.videostream (janitoo_raspberry_camera.camera:make_stream)
+ - rpicamera.video (janitoo_raspberry_camera.camera:make_video)
+ - rpicamera.photo (janitoo_raspberry_camera.camera:make_photo)
+

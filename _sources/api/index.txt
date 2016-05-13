@@ -1,0 +1,30 @@
+janitoo_raspberry_camera package
+================================
+
+Submodules
+----------
+
+janitoo_raspberry_camera.camera module
+--------------------------------------
+
+.. automodule:: janitoo_raspberry_camera.camera
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+janitoo_raspberry_camera.thread_camera module
+---------------------------------------------
+
+.. automodule:: janitoo_raspberry_camera.thread_camera
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: janitoo_raspberry_camera
+    :members:
+    :undoc-members:
+    :show-inheritance:
