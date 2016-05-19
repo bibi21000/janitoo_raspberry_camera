@@ -47,7 +47,9 @@ except OSError:
         class PiCamera():
             """ Fake class to allow buil on Continuous Integration tools.
             """
-            pass
+            @property
+            def closed(self):
+                return True
     picamera = Picamera()
     logger.exception('Can"t import picamera')
 
