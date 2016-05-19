@@ -53,7 +53,7 @@ except OSError:
     picamera = Picamera()
     logger.exception('Can"t import picamera')
 
-from janitoo_raspberry_camera.thread_camera import OID
+OID = 'rpicamera'
 
 ##############################################################
 #Check that we are in sync with the official command classes
