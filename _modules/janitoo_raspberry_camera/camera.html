@@ -156,11 +156,13 @@
 <div class="viewcode-block" id="Picamera.PiCamera"><a class="viewcode-back" href="../../api/index.html#janitoo_raspberry_camera.camera.Picamera.PiCamera">[docs]</a>        <span class="k">class</span> <span class="nc">PiCamera</span><span class="p">():</span>
             <span class="sd">&quot;&quot;&quot; Fake class to allow buil on Continuous Integration tools.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">pass</span></div></div>
+            <span class="nd">@property</span>
+<div class="viewcode-block" id="Picamera.PiCamera.closed"><a class="viewcode-back" href="../../api/index.html#janitoo_raspberry_camera.camera.Picamera.PiCamera.closed">[docs]</a>            <span class="k">def</span> <span class="nf">closed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">True</span></div></div></div>
     <span class="n">picamera</span> <span class="o">=</span> <span class="n">Picamera</span><span class="p">()</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s">&#39;Can&quot;t import picamera&#39;</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">janitoo_raspberry_camera.thread_camera</span> <span class="kn">import</span> <span class="n">OID</span>
+<span class="n">OID</span> <span class="o">=</span> <span class="s">&#39;rpicamera&#39;</span>
 
 <span class="c">##############################################################</span>
 <span class="c">#Check that we are in sync with the official command classes</span>
@@ -657,7 +659,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2015,2016 Sébastien GALLET aka bibi2100 &lt;bibi21000@gmail.com&gt;.<br/>
+        &copy; Copyright 2014,2015,2016 Sébastien GALLET aka bibi2100 &lt;bibi21000@gmail.com&gt;.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.<br/>
     </p>
   </div>
