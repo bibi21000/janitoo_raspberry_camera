@@ -171,7 +171,7 @@ class CameraBus(JNTBus):
                 self.update_attrs('camera', self.camera)
             else:
                 raise RuntimeError("Can't lock camera")
-        except:
+        except Exception:
             logger.exception("[%s] - Can't start component camera", self.__class__.__name__)
         finally:
             self.camera_release()
@@ -183,7 +183,7 @@ class CameraBus(JNTBus):
         if self.camera is not None:
             try:
                 self.camera.close()
-            except:
+            except Exception:
                 logger.exception("[%s] - an't start component camera", self.__class__.__name__)
         self.camera = None
         self.update_attrs('camera', self.camera)
@@ -198,11 +198,11 @@ class CameraBus(JNTBus):
                 self.camera.start_preview()
                 # Camera warm-up time
                 time.sleep(2)
-            except:
+            except Exception:
                 logger.exception("[%s] - Can't start camera", self.__class__.__name__)
                 try:
                     self.camera_release()
-                except:
+                except Exception:
                     logger.debug("[%s] - Can't release lock", self.__class__.__name__, exc_info=True)
                 return False
         return locked
@@ -213,12 +213,12 @@ class CameraBus(JNTBus):
         try:
             if self.camera is not None:
                 self.camera.stop_preview()
-        except:
+        except Exception:
             logger.exception("[%s] - Exception in camera_stop", self.__class__.__name__)
         finally:
             try:
                 self.camera_release()
-            except:
+            except Exception:
                 logger.debug("[%s] - Can't release lock", self.__class__.__name__, exc_info=True)
 
 class CameraComponent(JNTComponent):
@@ -297,7 +297,7 @@ class CameraPhoto(CameraComponent):
                 filename = datetime.datetime.now().strftime('%Y_%m_%d-%H_%M_%S')
                 filename = os.path.join(filename, '.jpg')
                 self._bus.camera.capture(os.path.join(directory, filename))
-            except:
+            except Exception:
                 logger.exception("[%s] - Exception in get_snapshot", self.__class__.__name__)
             finally:
                 self.camera_stop()
@@ -343,7 +343,7 @@ class CameraVideo(CameraComponent):
                 self._bus.camera.start_recording(os.path.join(directory, filename, '.h264'))
                 stop_timer = threading.Timer(self.values['snpashot_config'].data, self.stop_snapshot)
                 stop_timer.start()
-            except:
+            except Exception:
                 logger.exception("[%s] - Exception in get_snapshot", self.__class__.__name__)
                 self.camera_stop()
                 self._bus.camera = None
@@ -430,14 +430,14 @@ class StreamServerThread(BaseThread):
             self._reloadevent.clear()
             try:
                 self.pre_loop()
-            except:
+            except Exception:
                 logger.exception('[%s] - Exception in pre_loop', self.__class__.__name__)
                 self._stopevent.set()
             while not self._reloadevent.isSet() and not self._stopevent.isSet():
                 self.loop()
             try:
                 self.post_loop()
-            except:
+            except Exception:
                 logger.exception('[%s] - Exception in post_loop', self.__class__.__name__)
 
 class CameraStream(CameraComponent):
