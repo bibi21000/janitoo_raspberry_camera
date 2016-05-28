@@ -194,7 +194,7 @@ class CameraBus(JNTBus):
         locked = self.camera_acquire()
         if locked == True:
             try:
-                self.camera.led = self.get_bus_value("%s_led"%OID).data
+                self.camera.led = self.get_bus_value("led").data
                 self.camera.start_preview()
                 # Camera warm-up time
                 time.sleep(2)
