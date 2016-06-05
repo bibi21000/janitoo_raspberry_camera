@@ -69,10 +69,6 @@ class TestPiSerser(JNTTServer, JNTTServerCommon):
         self.skipTest("Update test or protocol")
         #~ JNTTServer.minimal_020_request_broadcast(self)
 
-    def test_030_wait_for_all_nodes(self):
-        self.skipRasperryTest()
-        JNTTServerCommon.test_030_wait_for_all_nodes(self)
-
     def test_040_server_start_no_error_in_log(self):
         self.onlyRasperryTest()
         JNTTServerCommon.test_040_server_start_no_error_in_log(self)
