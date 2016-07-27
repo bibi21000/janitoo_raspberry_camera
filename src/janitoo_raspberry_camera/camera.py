@@ -96,11 +96,6 @@ class CameraBus(JNTBus):
         JNTBus.__init__(self, **kwargs)
         self._camera_lock = threading.Lock()
         self.camera = None
-        directory = self.get_public_directory()
-        for didir in CAMERA_DIR:
-            ndir = os.path.join(directory,didir)
-            if not os.path.exists(ndir):
-                os.makedirs(ndir)
         uuid="%s_led"%OID
         self.values[uuid] = self.value_factory['config_boolean'](options=self.options, uuid=uuid,
             node_uuid=self.uuid,
@@ -164,6 +159,11 @@ class CameraBus(JNTBus):
     def start(self, mqttc, trigger_thread_reload_cb=None):
         """Start the bus
         """
+        directory = self.get_public_directory()
+        for didir in CAMERA_DIR:
+            ndir = os.path.join(directory,didir)
+            if not os.path.exists(ndir):
+                os.makedirs(ndir)
         JNTBus.start(self, mqttc, trigger_thread_reload_cb)
         try:
             if self.camera_acquire():
